@@ -87,7 +87,7 @@ npx openskills sync
 > claude "implement user authentication"
 # Claude implements user authentication, then you can ask it to reflect on implementation
 
-> /reflexion:reflect
+> /reflect
 # It analyses results and suggests improvements
 # If issues are obvious, it will fix them immediately
 # If they are minor, it will suggest improvements that you can respond to
@@ -95,7 +95,7 @@ npx openskills sync
 
 # If you would like to prevent issues found during reflection from appearing again,
 # ask Claude to extract resolution strategies and save the insights to project memory
-> /reflexion:memorize
+> /memorize
 ```
 
 Alternatively, you can use the `reflect` word in the initial prompt:
@@ -103,7 +103,7 @@ Alternatively, you can use the `reflect` word in the initial prompt:
 ```bash
 > claude "implement user authentication, then reflect"
 # Claude implements user authentication,
-# then hook automatically runs /reflexion:reflect
+# then hook automatically runs /reflect
 ```
 
 In order to use this hook, you need to have `bun` installed. However, it is not required for the overall command.
@@ -251,13 +251,13 @@ Collection of commands that force the LLM to reflect on the previous response an
 
 **Commands**
 
-- [/reflexion:reflect](https://cek.neolab.finance/plugins/reflexion/reflect) - Reflect on previous response and output, based on Self-refinement framework for iterative improvement with complexity triage and verification
-- [/reflexion:memorize](https://cek.neolab.finance/plugins/reflexion/memorize) - Memorize insights from reflections and update the CLAUDE.md file with this knowledge. Curates insights from reflections and critiques into CLAUDE.md using Agentic Context Engineering
-- [/reflexion:critique](https://cek.neolab.finance/plugins/reflexion/critique) - Comprehensive multi-perspective review using specialized judges with debate and consensus building
+- [/reflect](https://cek.neolab.finance/plugins/reflexion/reflect) - Reflect on previous response and output, based on Self-refinement framework for iterative improvement with complexity triage and verification
+- [/memorize](https://cek.neolab.finance/plugins/reflexion/memorize) - Memorize insights from reflections and update the CLAUDE.md file with this knowledge. Curates insights from reflections and critiques into CLAUDE.md using Agentic Context Engineering
+- [/critique](https://cek.neolab.finance/plugins/reflexion/critique) - Comprehensive multi-perspective review using specialized judges with debate and consensus building
 
 **Hooks**
 
-- **Automatic Reflection Hook** - Triggers `/reflexion:reflect` automatically when "reflect" appears in your prompt
+- **Automatic Reflection Hook** - Triggers `/reflect` automatically when "reflect" appears in your prompt
 
 **Theoretical Foundation**
 
@@ -334,7 +334,9 @@ Commands and skills for test-driven development with anti-pattern detection.
 
 **Skills**
 
-- **test-driven-development** - Introduces TDD methodology, best practices, and skills for testing using subagents
+- [test-driven-development](https://cek.neolab.finance/plugins/tdd/test-driven-development) - Introduces TDD methodology, best practices, and skills for testing using subagents
+- [design-testing-strategy](https://cek.neolab.finance/plugins/tdd/design-testing-strategy) - Manual to designe plan for a best way to cover a given artifact with tests, while minimizing amount of work and maximising coverage.
+
 
 ### [Subagent-Driven Development](https://cek.neolab.finance/plugins/sadd)
 
@@ -429,6 +431,7 @@ Additional commands useful before creating a task:
 | `team-lead` | Step parallelization, agent assignment, execution planning | `/plan-task` (Phase 5) |
 | `qa-engineer` | Verification rubrics, quality gates, LLM-as-Judge definitions | `/plan-task` (Phase 6) |
 | `developer` | Code implementation, TDD execution, quality review, verification | `/implement-task` |
+| `code-reviewer` | Verifies implementation against the per-step verification spec and evaluates code quality | `/implement-task` |
 | `tech-writer` | Technical documentation writing, API guides, architecture updates, lessons learned | `/implement-task` |
 
 
@@ -561,14 +564,14 @@ Commands and skills for creating and refining Claude Code extensions.
 
 **Commands**
 
-- [/customaize-agent:create-agent](https://cek.neolab.finance/plugins/customaize-agent/create-agent) - Comprehensive guide for creating Claude Code agents with proper structure, triggering conditions, system prompts, and validation
-- [/customaize-agent:create-command](https://cek.neolab.finance/plugins/customaize-agent/create-command) - Interactive assistant for creating new Claude commands with proper structure and patterns
-- [/customaize-agent:create-workflow-command](https://cek.neolab.finance/plugins/customaize-agent/create-workflow-command) - Create workflow commands that orchestrate multi-step execution through sub-agents with file-based task prompts
-- [/customaize-agent:create-skill](https://cek.neolab.finance/plugins/customaize-agent/create-skill) - Guide for creating effective skills with test-driven approach
-- [/customaize-agent:create-hook](https://cek.neolab.finance/plugins/customaize-agent/create-hook) - Create and configure git hooks with intelligent project analysis and automated testing
-- [/customaize-agent:test-skill](https://cek.neolab.finance/plugins/customaize-agent/test-skill) - Verify skills work under pressure and resist rationalization using RED-GREEN-REFACTOR cycle
-- [/customaize-agent:test-prompt](https://cek.neolab.finance/plugins/customaize-agent/test-prompt) - Test any prompt (commands, hooks, skills, subagent instructions) using RED-GREEN-REFACTOR cycle with subagents
-- [/customaize-agent:apply-anthropic-skill-best-practices](https://cek.neolab.finance/plugins/customaize-agent/apply-anthropic-skill-best-practices) - Comprehensive guide for skill development based on Anthropic's official best practices
+- [/create-agent](https://cek.neolab.finance/plugins/customaize-agent/create-agent) - Comprehensive guide for creating Claude Code agents with proper structure, triggering conditions, system prompts, and validation
+- [/create-command](https://cek.neolab.finance/plugins/customaize-agent/create-command) - Interactive assistant for creating new Claude commands with proper structure and patterns
+- [/create-workflow-command](https://cek.neolab.finance/plugins/customaize-agent/create-workflow-command) - Create workflow commands that orchestrate multi-step execution through sub-agents with file-based task prompts
+- [/create-skill](https://cek.neolab.finance/plugins/customaize-agent/create-skill) - Guide for creating effective skills with test-driven approach
+- [/create-hook](https://cek.neolab.finance/plugins/customaize-agent/create-hook) - Create and configure git hooks with intelligent project analysis and automated testing
+- [/test-skill](https://cek.neolab.finance/plugins/customaize-agent/test-skill) - Verify skills work under pressure and resist rationalization using RED-GREEN-REFACTOR cycle
+- [/test-prompt](https://cek.neolab.finance/plugins/customaize-agent/test-prompt) - Test any prompt (commands, hooks, skills, subagent instructions) using RED-GREEN-REFACTOR cycle with subagents
+- [/apply-anthropic-skill-best-practices](https://cek.neolab.finance/plugins/customaize-agent/apply-anthropic-skill-best-practices) - Comprehensive guide for skill development based on Anthropic's official best practices
 
 **Skills**
 
@@ -622,11 +625,11 @@ Commands for integrating Model Context Protocol servers with your project. Each 
 
 **Commands**
 
-- [/mcp:setup-context7-mcp](https://cek.neolab.finance/plugins/mcp/setup-context7-mcp) - Guide for setting up Context7 MCP server to load documentation for specific technologies
-- [/mcp:setup-serena-mcp](https://cek.neolab.finance/plugins/mcp/setup-serena-mcp) - Guide for setting up Serena MCP server for semantic code retrieval and editing capabilities
-- [/mcp:setup-codemap-cli](https://cek.neolab.finance/plugins/mcp/setup-codemap-cli) - Guide for setting up Codemap CLI for intelligent codebase visualization and navigation
-- [/mcp:setup-arxiv-mcp](https://cek.neolab.finance/plugins/mcp/setup-arxiv-mcp) - Guide for setting up arXiv/Paper Search MCP server via Docker MCP for academic paper search and retrieval from multiple sources
-- [/mcp:build-mcp](https://cek.neolab.finance/plugins/mcp/build-mcp) - Guide for creating high-quality MCP servers that enable LLMs to interact with external services
+- [/setup-context7-mcp](https://cek.neolab.finance/plugins/mcp/setup-context7-mcp) - Guide for setting up Context7 MCP server to load documentation for specific technologies
+- [/setup-serena-mcp](https://cek.neolab.finance/plugins/mcp/setup-serena-mcp) - Guide for setting up Serena MCP server for semantic code retrieval and editing capabilities
+- [/setup-codemap-cli](https://cek.neolab.finance/plugins/mcp/setup-codemap-cli) - Guide for setting up Codemap CLI for intelligent codebase visualization and navigation
+- [/setup-arxiv-mcp](https://cek.neolab.finance/plugins/mcp/setup-arxiv-mcp) - Guide for setting up arXiv/Paper Search MCP server via Docker MCP for academic paper search and retrieval from multiple sources
+- [/build-mcp](https://cek.neolab.finance/plugins/mcp/build-mcp) - Guide for creating high-quality MCP servers that enable LLMs to interact with external services
 
 ## Theoretical Foundation
 
