@@ -1,0 +1,326 @@
+<title>Boutique Gift Voucher — Print Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --chrome-bg: #fbfaf8;
+    --chrome-bg-2: #ffffff;
+    --chrome-ink: #201a12;
+    --chrome-ink-soft: #6b6255;
+    --chrome-accent: #8a6a2c;
+
+    --ground: #17231f;
+    --ground-2: #1e2f29;
+    --hairline: #2c3f37;
+    --foil: #c9a24b;
+    --foil-soft: #e4c97a;
+    --paper-text: #f3ede1;
+    --paper-text-dim: #b9ad95;
+
+    --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    --font-body: -apple-system, "Segoe UI", system-ui, sans-serif;
+    --font-mono: "Courier New", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --chrome-bg: #14120e;
+      --chrome-bg-2: #1c1913;
+      --chrome-ink: #f1ece1;
+      --chrome-ink-soft: #b3a893;
+    }
+  }
+  :root[data-theme="dark"] {
+    --chrome-bg: #14120e;
+    --chrome-bg-2: #1c1913;
+    --chrome-ink: #f1ece1;
+    --chrome-ink-soft: #b3a893;
+  }
+  :root[data-theme="light"] {
+    --chrome-bg: #fbfaf8;
+    --chrome-bg-2: #ffffff;
+    --chrome-ink: #201a12;
+    --chrome-ink-soft: #6b6255;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--chrome-bg);
+    color: var(--chrome-ink);
+    font-family: var(--font-body);
+  }
+
+  .screen-chrome {
+    max-width: 7.6in;
+    margin: 0 auto;
+    padding: 0.6in 0.4in 0.2in;
+  }
+  .screen-chrome h1 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: normal;
+    font-size: 1.6rem;
+    margin: 0 0 0.2em;
+  }
+  .screen-chrome p {
+    color: var(--chrome-ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin: 0 0 1em;
+  }
+  .print-btn {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.55em 1.1em;
+    border: 1.5px solid var(--chrome-ink);
+    background: var(--chrome-bg-2);
+    color: var(--chrome-ink);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+  .print-btn:hover { background: var(--chrome-accent); color: #fff; border-color: var(--chrome-accent); }
+  .print-btn:focus-visible { outline: 2px solid var(--chrome-accent); outline-offset: 2px; }
+
+  .sheet {
+    width: 7.5in;
+    margin: 0.3in auto 0.8in;
+    padding: 0.25in 0.25in 0.35in;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35in;
+    background: var(--chrome-bg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 12px 30px rgba(0,0,0,0.12);
+  }
+
+  .fold-line {
+    align-self: center;
+    width: 7in;
+    border-top: 1px dashed var(--chrome-ink-soft);
+    position: relative;
+    height: 0;
+  }
+  .fold-line span {
+    position: absolute;
+    left: 50%;
+    top: -0.09in;
+    transform: translateX(-50%);
+    background: var(--chrome-bg-2);
+    padding: 0 0.1in;
+    font-family: var(--font-body);
+    font-size: 7.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--chrome-ink-soft);
+  }
+
+  .voucher {
+    width: 7in;
+    height: 3.1in;
+    margin: 0 auto;
+    background: var(--ground);
+    color: var(--paper-text);
+    position: relative;
+    padding: 0.24in;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .voucher::before {
+    content: "";
+    position: absolute;
+    inset: 0.12in;
+    border: 1px solid var(--foil);
+    pointer-events: none;
+  }
+  .voucher::after {
+    content: "";
+    position: absolute;
+    inset: 0.16in;
+    border: 1px solid var(--hairline);
+    pointer-events: none;
+  }
+  .corner {
+    position: absolute;
+    width: 0.16in;
+    height: 0.16in;
+    border: 1.5px solid var(--foil-soft);
+  }
+  .corner.tl { top: 0.055in; left: 0.055in; border-right: 0; border-bottom: 0; }
+  .corner.tr { top: 0.055in; right: 0.055in; border-left: 0; border-bottom: 0; }
+  .corner.bl { bottom: 0.055in; left: 0.055in; border-right: 0; border-top: 0; }
+  .corner.br { bottom: 0.055in; right: 0.055in; border-left: 0; border-top: 0; }
+
+  .voucher-inner {
+    position: relative;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr auto;
+    gap: 0 0.3in;
+    padding: 0.16in 0.22in;
+  }
+
+  .eyebrow {
+    grid-column: 1 / -1;
+    font-family: var(--font-body);
+    font-size: 8.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--foil-soft);
+    text-align: center;
+  }
+
+  .headline {
+    grid-column: 1 / -1;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: var(--paper-text);
+    margin: 0.02in 0 0.08in;
+  }
+
+  .fields {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.14in;
+    font-family: var(--font-body);
+    font-size: 10px;
+  }
+  .field-label {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 7.5px;
+    color: var(--paper-text-dim);
+    margin-bottom: 0.02in;
+  }
+  .field-line {
+    border-bottom: 1px solid var(--hairline);
+    width: 3.1in;
+    height: 0.16in;
+  }
+
+  .amount-block {
+    align-self: center;
+    text-align: center;
+    justify-self: end;
+    padding-left: 0.2in;
+    border-left: 1px solid var(--hairline);
+  }
+  .amount-label {
+    font-family: var(--font-body);
+    font-size: 7.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-text-dim);
+  }
+  .amount {
+    font-family: var(--font-display);
+    font-size: 30px;
+    color: var(--foil-soft);
+    line-height: 1.1;
+  }
+
+  .footer-row {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-top: 1px solid var(--hairline);
+    padding-top: 0.1in;
+  }
+  .redeem-code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--foil-soft);
+  }
+  .redeem-code .k { color: var(--paper-text-dim); letter-spacing: 0.14em; font-size: 7.5px; display: block; margin-bottom: 0.02in; font-family: var(--font-body); text-transform: uppercase; }
+  .terms {
+    font-family: var(--font-body);
+    font-size: 7px;
+    line-height: 1.4;
+    color: var(--paper-text-dim);
+    max-width: 3in;
+    text-align: right;
+  }
+
+  @media print {
+    .screen-chrome { display: none; }
+    body { background: #fff; }
+    .sheet { box-shadow: none; margin: 0; }
+    @page { size: letter; margin: 0.5in; }
+  }
+</style>
+
+<div class="screen-chrome">
+  <h1>Boutique Gift Voucher — Print Sheet</h1>
+  <p>
+    Two fold-and-give vouchers per US Letter sheet, 7&Prime; × 3.1&Prime; each, in a dark
+    foil-stamped treatment suited to a boutique, spa, or gift shop. Swap the amount, redemption
+    code, and terms before printing — enable "background graphics" in your print dialog so the
+    dark ground and gold rule print correctly.
+  </p>
+  <button class="print-btn" onclick="window.print()">Print this sheet</button>
+</div>
+
+<div class="sheet">
+  <div class="voucher">
+    <div class="corner tl"></div><div class="corner tr"></div>
+    <div class="corner bl"></div><div class="corner br"></div>
+    <div class="voucher-inner">
+      <div class="eyebrow">[ Your Business Name ]</div>
+      <div class="headline">Gift Voucher</div>
+      <div class="fields">
+        <div>
+          <div class="field-label">Presented to</div>
+          <div class="field-line"></div>
+        </div>
+        <div>
+          <div class="field-label">From</div>
+          <div class="field-line"></div>
+        </div>
+      </div>
+      <div class="amount-block">
+        <div class="amount-label">Value</div>
+        <div class="amount">$50</div>
+      </div>
+      <div class="footer-row">
+        <div class="redeem-code"><span class="k">Redemption code</span>GIFT-50-XXXX</div>
+        <div class="terms">Redeemable in-store or online through [Month DD, YYYY]. No cash value. Non-transferable once redeemed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fold-line"><span>fold &amp; cut</span></div>
+
+  <div class="voucher">
+    <div class="corner tl"></div><div class="corner tr"></div>
+    <div class="corner bl"></div><div class="corner br"></div>
+    <div class="voucher-inner">
+      <div class="eyebrow">[ Your Business Name ]</div>
+      <div class="headline">Gift Voucher</div>
+      <div class="fields">
+        <div>
+          <div class="field-label">Presented to</div>
+          <div class="field-line"></div>
+        </div>
+        <div>
+          <div class="field-label">From</div>
+          <div class="field-line"></div>
+        </div>
+      </div>
+      <div class="amount-block">
+        <div class="amount-label">Value</div>
+        <div class="amount">$50</div>
+      </div>
+      <div class="footer-row">
+        <div class="redeem-code"><span class="k">Redemption code</span>GIFT-50-XXXX</div>
+        <div class="terms">Redeemable in-store or online through [Month DD, YYYY]. No cash value. Non-transferable once redeemed.</div>
+      </div>
+    </div>
+  </div>
+</div>
