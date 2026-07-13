@@ -1,0 +1,281 @@
+<title>Free Drink Coupon — Print Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --chrome-bg: #fbfaf8;
+    --chrome-bg-2: #ffffff;
+    --chrome-ink: #201a12;
+    --chrome-ink-soft: #6b6255;
+    --chrome-accent: #a6462b;
+
+    --kraft: #c69a6c;
+    --kraft-deep: #a67a4c;
+    --kraft-deepest: #8c6640;
+    --espresso: #2b1d14;
+    --espresso-soft: #5c4534;
+    --cream: #f3e9d8;
+    --stamp: #a6462b;
+    --stamp-soft: #7a3320;
+
+    --font-display: Impact, "Arial Narrow Bold", "Haettenschweiler", "Arial Black", sans-serif;
+    --font-body: Georgia, "Times New Roman", Times, serif;
+    --font-mono: "Courier New", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --chrome-bg: #17140f;
+      --chrome-bg-2: #201b14;
+      --chrome-ink: #f1ece1;
+      --chrome-ink-soft: #b3a893;
+    }
+  }
+  :root[data-theme="dark"] {
+    --chrome-bg: #17140f;
+    --chrome-bg-2: #201b14;
+    --chrome-ink: #f1ece1;
+    --chrome-ink-soft: #b3a893;
+  }
+  :root[data-theme="light"] {
+    --chrome-bg: #fbfaf8;
+    --chrome-bg-2: #ffffff;
+    --chrome-ink: #201a12;
+    --chrome-ink-soft: #6b6255;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--chrome-bg);
+    color: var(--chrome-ink);
+    font-family: var(--font-body);
+  }
+
+  .screen-chrome {
+    max-width: 7.6in;
+    margin: 0 auto;
+    padding: 0.6in 0.4in 0.2in;
+  }
+  .screen-chrome h1 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.2em;
+  }
+  .screen-chrome p {
+    color: var(--chrome-ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin: 0 0 1em;
+  }
+  .print-btn {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0.55em 1.1em;
+    border: 1.5px solid var(--chrome-ink);
+    background: var(--chrome-bg-2);
+    color: var(--chrome-ink);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+  .print-btn:hover { background: var(--chrome-accent); color: #fff; border-color: var(--chrome-accent); }
+  .print-btn:focus-visible { outline: 2px solid var(--chrome-accent); outline-offset: 2px; }
+
+  .sheet {
+    width: 7.5in;
+    margin: 0.3in auto 0.8in;
+    padding: 0.05in;
+    display: grid;
+    grid-template-columns: repeat(2, 3.55in);
+    grid-template-rows: repeat(4, 2in);
+    gap: 0.1in;
+    justify-content: center;
+    background: var(--chrome-bg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 12px 30px rgba(0,0,0,0.12);
+  }
+
+  .ticket {
+    display: grid;
+    grid-template-columns: 0.85in 1fr;
+    background:
+      radial-gradient(circle at 88% 78%, transparent 0.28in, var(--kraft-deepest) 0.29in, var(--kraft-deepest) 0.305in, transparent 0.315in),
+      radial-gradient(circle at 88% 78%, transparent 0.42in, var(--kraft-deepest) 0.43in, var(--kraft-deepest) 0.44in, transparent 0.45in),
+      var(--kraft);
+    color: var(--espresso);
+    position: relative;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    overflow: hidden;
+  }
+
+  .stub {
+    background: var(--kraft-deep);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .stub-inner {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    gap: 0.14in;
+    color: var(--cream);
+  }
+  .stub-label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+  }
+  .stub-serial {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .perf {
+    position: absolute;
+    left: 0.85in;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-image: radial-gradient(circle, var(--kraft) 1.6px, transparent 1.7px);
+    background-size: 100% 11px;
+    background-repeat: repeat-y;
+    background-color: var(--kraft-deep);
+  }
+
+  .body {
+    padding: 0.13in 0.18in 0.11in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    position: relative;
+  }
+  .brand {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--espresso-soft);
+  }
+  .headline {
+    font-family: var(--font-display);
+    line-height: 0.82;
+    font-size: 27px;
+    letter-spacing: 0.01em;
+    color: var(--stamp);
+    transform: rotate(-2deg);
+    transform-origin: left center;
+    margin: 0.04in 0 0.02in;
+    text-shadow: 0.3px 0.3px 0 var(--stamp-soft);
+  }
+  .subhead {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--espresso);
+    margin-top: -0.02in;
+  }
+  .terms {
+    font-family: var(--font-body);
+    font-size: 8px;
+    line-height: 1.35;
+    color: var(--espresso-soft);
+    margin-top: 0.05in;
+  }
+  .code-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 0.06in;
+  }
+  .code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+    color: var(--stamp-soft);
+    border: 1px dashed var(--espresso-soft);
+    padding: 1px 5px;
+  }
+  .barcode-wrap { text-align: right; }
+  .barcode {
+    display: block;
+    width: 0.85in;
+    height: 0.3in;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--espresso) 0px, var(--espresso) 1px,
+      transparent 1px, transparent 2px,
+      var(--espresso) 2px, var(--espresso) 4px,
+      transparent 4px, transparent 5px,
+      var(--espresso) 5px, var(--espresso) 6px,
+      transparent 6px, transparent 8px
+    );
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .barcode-label {
+    font-family: var(--font-mono);
+    font-size: 6.5px;
+    letter-spacing: 0.1em;
+    color: var(--espresso-soft);
+    text-transform: uppercase;
+  }
+
+  @media print {
+    .screen-chrome { display: none; }
+    body { background: #fff; }
+    .sheet { box-shadow: none; margin: 0; }
+    @page { size: letter; margin: 0.5in; }
+  }
+</style>
+
+<div class="screen-chrome">
+  <h1>Free Drink Coupon — Print Sheet</h1>
+  <p>
+    Eight tear-off coupons per US Letter sheet, 3.5&Prime; × 2&Prime; each, on a kraft-paper
+    ground with an espresso stamp headline and a faint coffee-ring watermark — built for
+    a counter stack or hand-outs. Swap the shop name, code, and terms before printing, and
+    enable "background graphics" in your print dialog so the kraft tone and stamp color print
+    correctly.
+  </p>
+  <button class="print-btn" onclick="window.print()">Print this sheet</button>
+</div>
+
+<div class="sheet" id="sheet"></div>
+
+<script>
+  const sheet = document.getElementById('sheet');
+  for (let i = 0; i < 8; i++) {
+    const serial = String(112 + i).padStart(6, '0');
+    const ticket = document.createElement('div');
+    ticket.className = 'ticket';
+    ticket.innerHTML =
+      '<div class="stub">' +
+        '<div class="stub-inner">' +
+          '<span class="stub-label">FREE</span>' +
+          '<span class="stub-serial">No. ' + serial + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="perf" aria-hidden="true"></div>' +
+      '<div class="body">' +
+        '<div class="brand">[ Your Coffee Shop Name ]</div>' +
+        '<div class="headline">FREE<br>DRINK</div>' +
+        '<div class="subhead">any handcrafted beverage, any size</div>' +
+        '<div class="terms">Valid thru [Month DD, YYYY] &middot; One per customer &middot; Dine-in or to-go</div>' +
+        '<div class="code-row">' +
+          '<span class="code">CODE: FREEDRINK</span>' +
+          '<span class="barcode-wrap"><span class="barcode" aria-hidden="true"></span><span class="barcode-label">[ scan to redeem ]</span></span>' +
+        '</div>' +
+      '</div>';
+    sheet.appendChild(ticket);
+  }
+</script>
